@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "legendary_blades",
+  "version": "${version}",
+  "name": "Legendary Blades",
+  "description": "Senjata legendaris bergaya katana, masing-masing dengan 2 skill. Senjata pertama: Yagura no Tachi.",
+  "authors": ["thesh"],
+  "license": "MIT",
+  "icon": "assets/legendary_blades/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.legendaryblades.LegendaryBlades"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

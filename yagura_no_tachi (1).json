@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "legendary_blades:item/yagura_no_tachi"
+  }
+}

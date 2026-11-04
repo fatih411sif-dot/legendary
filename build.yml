@@ -1,0 +1,50 @@
+name: build
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 25
+          distribution: temurin
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 9.6.0
+
+      - name: Build mod
+        run: gradle build
+
+      - name: Zip resource pack
+        run: cd resourcepack && zip -r ../Legendary-Blades-ResourcePack.zip .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: legendary_blades-mod
+          path: build/libs/*.jar
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: legendary_blades-resourcepack
+          path: Legendary-Blades-ResourcePack.zip
+
+      - name: Publish GitHub Release (hanya saat tag v*)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/libs/*.jar
+            Legendary-Blades-ResourcePack.zip
